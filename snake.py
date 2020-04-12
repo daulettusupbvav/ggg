@@ -116,12 +116,15 @@ def scores (x,y, score):
 
     screen.blit(sc, (x, y))
 
-
+def gameover():
+            font = pygame.font.SysFont('monaco',150)
+            text = font.render(f'GAME OVER', True, (255,255, 255))
+            screen.blit(text, ((screen.get_width() - text.get_width()) // 2, (screen.get_height() - text.get_height()) // 2))
 
 def end():
 
     if (snake.elements[0][0] > 640 - 30 or snake.elements[0][0] < 30) or (snake.elements[0][1] >376 - 30 or snake.elements[0][1] < 30):
-
+        gameover()
         return False
 
 
@@ -158,13 +161,13 @@ while running:
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
-
+            gameover()
             running = False
 
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_ESCAPE:
-
+                gameover()
                 running = False
 
             if event.key == pygame.K_RIGHT:
@@ -196,13 +199,13 @@ while running:
     for i in range(1, len(snake.elements)):
 
         if (snake.elements[0][0] == snake.elements[i][0] and snake.elements[0][1] == snake.elements[i][1]):
-
+            gameover()
             running = False
 
     
 
     if end() == False:
-
+        gameover()
         running = False
 
 
