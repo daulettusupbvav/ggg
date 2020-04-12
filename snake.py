@@ -20,7 +20,7 @@ pygame.display.set_caption('Snake and stars')
 
 
 backgroundImage = pygame.image.load('1.png')
-
+background_rect = backgroundImage.get_rect()
 
 class Food:
 
@@ -112,10 +112,9 @@ pointplus = 0
 
 def scores (x,y, score):
 
-    sc = point.render('Points: ' + str(pointplus), True, (0, 0, 0))
+    sc = point.render('Points: ' + str(pointplus), True, (255, 255 , 255))
 
     screen.blit(sc, (x, y))
-
 def start_menu():
     screen.blit(backgroundImage, background_rect)
     render(screen, "Welcome to Snake Game", 48, d_width / 2, d_height / 4)
@@ -138,17 +137,16 @@ def render(surface, text, size, x, y):
     text_rect.midtop = (x, y)
     surface.blit(text_surface, text_rect)
 
+
+def end():
+
+    if (snake.elements[0][0] > 640 - 20 or snake.elements[0][0] < 20) or (snake.elements[0][1] >376 - 20 or snake.elements[0][1] < 20):
+        gameover()
+        return False
 def gameover():
             font = pygame.font.SysFont('monaco',150)
             text = font.render(f'GAME OVER', True, (255,255, 255))
             screen.blit(text, ((screen.get_width() - text.get_width()) // 2, (screen.get_height() - text.get_height()) // 2))
-
-def end():
-
-    if (snake.elements[0][0] > 640 - 30 or snake.elements[0][0] < 30) or (snake.elements[0][1] >376 - 30 or snake.elements[0][1] < 30):
-        gameover()
-        return False
-
 
 
 snake = Snake()
@@ -161,7 +159,7 @@ running = True
 
 
 
-gg = 3
+gg = 5
 
 
 
@@ -183,6 +181,8 @@ while running:
     if Newg:
         start_menu()
         Newg = False
+
+     
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -236,7 +236,7 @@ while running:
 
 
     if snake.is_add == True:
-
+    
         pointplus += 1
 
     
