@@ -116,6 +116,28 @@ def scores (x,y, score):
 
     screen.blit(sc, (x, y))
 
+def start_menu():
+    screen.blit(backgroundImage, background_rect)
+    render(screen, "Welcome to Snake Game", 48, d_width / 2, d_height / 4)
+    render(screen, "Press any key to begin", 25, d_width / 2, d_height  / 1.5)
+    pygame.display.flip()
+    menu = True
+    while menu:
+        clock.tick(FPS)
+        for key in pygame.event.get():
+            if key.type == pygame.QUIT:
+                pygame.quit()
+            if key.type == pygame.KEYUP:
+                menu = False
+
+def render(surface, text, size, x, y):
+    font_name = pygame.font.match_font('arial')
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, (255, 255 , 255) )
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x, y)
+    surface.blit(text_surface, text_rect)
+
 def gameover():
             font = pygame.font.SysFont('monaco',150)
             text = font.render(f'GAME OVER', True, (255,255, 255))
@@ -153,11 +175,14 @@ clock = pygame.time.Clock()
 pygame.mixer.music.play(loops=-1)
 
 running = True
+Newg = True
 
 while running:
 
     mill = clock.tick(FPS)
-
+    if Newg:
+        start_menu()
+        Newg = False
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
